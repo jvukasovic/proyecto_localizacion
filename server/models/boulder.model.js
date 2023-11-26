@@ -13,7 +13,7 @@ const BoulderSchema = new mongoose.Schema({
     description: { 
         type: String, 
         required: [true, 'La descripcion es requerida.'],  
-        minLength: [10, "La descripición debe tener más de 10 caracteres."] 
+        minLength: [10, 'La descripición debe tener más de 10 caracteres.'] 
     },
     geolocation: {
         type: {
