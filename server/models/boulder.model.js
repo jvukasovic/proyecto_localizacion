@@ -30,7 +30,7 @@ const BoulderSchema = new mongoose.Schema({
         // required: [true, 'La localización es requerida']
     },
     calification: { 
-        type: String, 
+        type: Number, 
         // enum: ['V0', 'V1', 'V2'],  // vale la pena hacerlo aqui, o se puede hacer una funcion validGrade cuando se cree y eso es suficiente? 
         required: [true, 'La calificación es requerida']
     }, 
