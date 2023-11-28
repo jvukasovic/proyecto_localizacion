@@ -16,20 +16,18 @@ const BoulderSchema = new mongoose.Schema({
         required: [true, 'La descripcion es requerida.'],  
         minLength: [10, 'La descripición debe tener más de 10 caracteres.'] 
     },
-    geolocation: {
+    location: {
         type: {
-            type: {
-              type: String, // Don't do `{ location: { type: String } }`
-              enum: ['Point'], // 'location.type' must be 'Point'
-              required: true
-            },
-            coordinates: {
-              type: [Number],
-              required: true
-            }
-          },
+          type: String, // Don't do `{ location: { type: String } }`
+          enum: ['Point'], // 'location.type' must be 'Point'
+          required: true
+        },
+        coordinates: {
+          type: [Number],
+          required: true
+        }
         // required: [true, 'La localización es requerida']
-    },
+      },
     calification: { 
         type: Number, 
         min: 0,
