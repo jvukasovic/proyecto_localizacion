@@ -13,12 +13,17 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-    // try catch??
-    const loginUserResult = await User.findOne({email: req.body.email, password: req.body.password});
-    if(loginUserResult != null){
-        res.status(200).json(true);
-    } else {
-        res.status(200).json(false);
+    try {
+        const loginUserResult = await User.findOne({email: req.body.email, password: req.body.password});
+        if(loginUserResult != null){
+            res.status(200).json(true);
+        } else {
+            res.status(200).json(false);
+        }
+    } catch (e) {
+        res.status(400).json({
+            "message": e.message
+        })
     }
 }
 
