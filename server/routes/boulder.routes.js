@@ -1,11 +1,11 @@
 import express from 'express';
-import * as bulderCtlr from '../controllers/boulders.controller.js';
+import * as bulderCtrl from '../controllers/boulders.controller.js';
 
 const router = express.Router();
-router.post("/api/boulders/create", bulderCtlr.createBoulder);
-router.get("/api/boulders/get", bulderCtlr.getBoulders);
-router.get("/api/boulders/getOne/:idBoulder", bulderCtlr.getOneBoulder);
-router.delete("/api/boulders/delete/:idBoulder", bulderCtlr.deleteBoulder);
-router.put("/api/boulders/update/:idBoulder", bulderCtlr.updateBoulder);
+router.post("/api/boulders/create", bulderCtrl.createBoulder);
+router.get("/api/boulders/get", bulderCtrl.getBoulders);
+router.get("/api/boulders/getOne/:idBoulder", bulderCtrl.getOneBoulder);
+router.delete("/api/boulders/delete/:idBoulder", bulderCtrl.deleteBoulder);
+router.put("/api/boulders/update/:idBoulder", bulderCtrl.updateBoulder);
 
 export {router}
