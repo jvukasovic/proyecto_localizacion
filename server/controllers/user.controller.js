@@ -15,7 +15,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     // try catch??
     const loginUserResult = await User.findOne({email: req.body.email, password: req.body.password});
-    if(result != null){
+    if(loginUserResult != null){
         res.status(200).json(true);
     } else {
         res.status(200).json(false);
