@@ -8,6 +8,7 @@ const BoulderSchema = new mongoose.Schema({
     },
     grade: { 
         type: String, 
+        // enum: ['V0', 'V1', 'V2'],  // vale la pena hacerlo aqui, o se puede hacer una funcion validGrade cuando se cree y eso es suficiente? 
         required: [true, 'El grado es requerido.'] 
     }, 
     description: { 
@@ -31,7 +32,8 @@ const BoulderSchema = new mongoose.Schema({
     },
     calification: { 
         type: Number, 
-        // enum: ['V0', 'V1', 'V2'],  // vale la pena hacerlo aqui, o se puede hacer una funcion validGrade cuando se cree y eso es suficiente? 
+        min: 0,
+        max: 5,
         required: [true, 'La calificación es requerida']
     }, 
     idUser: { 
