@@ -5,7 +5,7 @@ const createBoulder = async (req, res) => {
         // validar si usuario es admin?
         // validar que los grados sean correctos
         const createData = req.body;
-        const newBoulderData = await Review.create(createData);
+        const newBoulderData = await Boulder.create(createData);
         res.status(200).json(newBoulderData);
     } catch(e) {
         res.status(400).json({"message": e.message});
