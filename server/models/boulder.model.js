@@ -16,7 +16,7 @@ const BoulderSchema = new mongoose.Schema({
         required: [true, 'La descripcion es requerida.'],  
         minLength: [10, 'La descripición debe tener más de 10 caracteres.'] 
     },
-    location: {
+    geolocation: {
         type: {
           type: String, // Don't do `{ location: { type: String } }`
           enum: ['Point'], // 'location.type' must be 'Point'
