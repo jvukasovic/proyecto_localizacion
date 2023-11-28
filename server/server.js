@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
+import * as userRoutes from './routes/user.routes.js';
 import * as boulderRoutes from './routes/boulder.routes.js';
 
 
@@ -15,5 +16,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use(boulderRoutes.router);
+app.use(userRoutes.router);
 
 app.listen(8000);
