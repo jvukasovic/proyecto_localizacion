@@ -1,25 +1,8 @@
-import User from "../models/user.model.js";
+import express from "express";
+import * as userCtrl from "../controllers/user.controller.js";
 
-const registerUser = async (req, res) => {
-    try{
-        const userData = req.body;
-        const createUserResult = await User.create(userData);
-        res.status(200).json(createUserResult);
-    }catch(e){
-        res.status(400).json({
-            "message": e.message
-        })
-    }
-}
+const router = express.Router();
+router.post("/api/user/register", userCtrl.registerUser);
+router.post("/api/user/login", userCtrl.loginUser);
 
-const loginUser = async (req, res) => {
-    // try catch??
-    const loginUserResult = await User.findOne({email: req.body.email, password: req.body.password});
-    if(result != null){
-        res.status(200).json(true);
-    } else {
-        res.status(200).json(false);
-    }
-}
-
-export { registerUser, loginUser };
+export {router};
