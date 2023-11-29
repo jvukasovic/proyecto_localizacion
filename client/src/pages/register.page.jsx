@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Form,
-  Input,
-} from 'antd';
+import { Link } from 'react-router-dom';
+import {Button, Form, Input} from 'antd';
 
 const formItemLayout = {
   labelCol: {
@@ -141,9 +138,10 @@ const RegisterPage = () => {
     
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
-          Register
+          Create account
         </Button>
       </Form.Item>
+      <p>Already have an account? <Link to='/login'>Sign in</Link></p>
     </Form>
   );
 };
