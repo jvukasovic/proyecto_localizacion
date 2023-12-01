@@ -11,9 +11,22 @@ const formItemLayout = {
     },
     sm: {
       span: 12,
+      offset: 0,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 12,
       offset: 6,
     },
   },
+};
+
+const tailFormItemLayout = {
   wrapperCol: {
     xs: {
       span: 24,
@@ -83,13 +96,22 @@ const App = () => {
       </Form.Item> */}
 
       <Form.Item 
-        {...formItemLayout}
+        {...tailFormItemLayout}
+        style={{
+          textAlign: 'center'
+        }}
       >
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
       </Form.Item>
-      Or <Link to='/'>register now!</Link>
+        <p 
+          style={{
+            textAlign: 'center'
+          }}
+        >
+          Or <Link to='/'>register now!</Link>
+        </p>
     </Form>
   );
 };

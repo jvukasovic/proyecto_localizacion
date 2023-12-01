@@ -136,12 +136,23 @@ const RegisterPage = () => {
         <Input />
       </Form.Item> */}
     
-      <Form.Item {...tailFormItemLayout}>
+      <Form.Item 
+        {...tailFormItemLayout}
+        style={{
+          textAlign: 'center'
+        }}
+      >
         <Button type="primary" htmlType="submit">
           Create account
         </Button>
       </Form.Item>
-      <p>Already have an account? <Link to='/login'>Sign in</Link></p>
+      <p
+        style={{
+          textAlign: 'center'
+        }}
+      >
+        Already have an account? <Link to='/login'>Sign in</Link>
+      </p>
     </Form>
   );
 };
