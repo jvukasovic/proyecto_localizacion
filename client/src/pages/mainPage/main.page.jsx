@@ -1,9 +1,10 @@
 
-import {List, Flex, Rate} from 'antd';
+import {List, Flex, Rate, Button} from 'antd';
 
 import { Wrapper} from "@googlemaps/react-wrapper";
 
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -56,6 +57,7 @@ function MyMapComponent({
 }
 
 const MainPage = () => {
+  const navigate = useNavigate();
   const render = (status) => {
     return <h1>{status}</h1>;
   };
@@ -84,13 +86,27 @@ const MainPage = () => {
           </List.Item>
         )}
       />
-      
+      <div
+        style={{
+          textAlign:'center'
+      }}
+      >
       <Wrapper 
         apiKey={apikey} 
         render={render}
       >
           <MyMapComponent center={center} zoom={zoom} />
       </Wrapper>
+      <Button
+          type="primary"
+          onClick={()=>navigate('/boulders/new')}
+          style={{
+              margin:8
+          }}
+      >
+          New Boulder
+      </Button>
+      </div>
 
     </Flex>
 
