@@ -1,38 +1,11 @@
 
 import {List, Flex, Rate, Button} from 'antd';
-
 import { Wrapper} from "@googlemaps/react-wrapper";
-
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
-
-
+import axios from 'axios';
 
 const apikey = process.env.REACT_APP_MAPS_API_KEY
-
-const data = [
-  'Boulder 1',
-  'Boulder 2',
-  'Boulder 3',
-  'Boulder 4',
-  'Boulder 5',
-  'Boulder 1',
-  'Boulder 2',
-  'Boulder 3',
-  'Boulder 4',
-  'Boulder 5',
-  'Boulder 1',
-  'Boulder 2',
-  'Boulder 3',
-  'Boulder 4',
-  'Boulder 5',
-  'Boulder 1',
-  'Boulder 2',
-  'Boulder 3',
-  'Boulder 4',
-  'Boulder 5',
-];
 
 function MyMapComponent({
   center,
@@ -57,12 +30,27 @@ function MyMapComponent({
 }
 
 const MainPage = () => {
+  const [boulderList, setBoulderList] = useState([]);
   const navigate = useNavigate();
   const render = (status) => {
     return <h1>{status}</h1>;
   };
   const center = { lat: -34.397, lng: 150.644 };
   const zoom = 4;
+
+  const callBoulderList = async () => {
+    try {
+      const result = await axios.get("http://localhost:8000/api/boulders/get");
+      const sortedList = result.data.sort((a,b) => b.meanRating - a.meanRating);
+      setBoulderList(sortedList);
+    } catch (e) {
+      alert(e.response.data.message);
+    }
+  }
+
+  useEffect(() =>{
+    callBoulderList();
+  }, []);
 
   return (
    
@@ -75,14 +63,14 @@ const MainPage = () => {
           overflow: 'auto',
         }}
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={boulderList}
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              title={<a href="https://ant.design">{item}</a>}
-              description="V12"
+              title={<a href={"http://localhost:3000/boulders/"+item._id}>{item.boulderName}</a>}
+              description={item.grade}
             />
-            <div><Rate /></div>
+            <div><Rate disabled defaultValue={item.meanRating} /></div>
           </List.Item>
         )}
       />
