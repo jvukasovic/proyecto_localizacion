@@ -47,7 +47,12 @@ const BoulderSchema = new mongoose.Schema({
         idUser: { 
             type: mongoose.Types.ObjectId,
             // required: [true, 'Id User es requerido']
+        },
+        userName: { 
+            type: String,
+            // required: [true, 'Id User es requerido']
         }
+        
     }
     ], 
     idUser: { 
