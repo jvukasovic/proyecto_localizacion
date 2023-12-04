@@ -7,6 +7,7 @@ import RegisterPage from './pages/registerPage/register.page';
 import LoginPage from './pages/loginPage/login.page';
 import MainPage from './pages/mainPage/main.page';
 import DetailBoulderPage from './pages/detailBoulder.page/detailBoulder.page';
+import CreateBoulderPage from './pages/createBoulder.page/createBoulder.page';
 
 
 const { Header, Content, Footer } = Layout;
@@ -72,6 +73,8 @@ function App() {
               <Route path='/login' element={<LoginPage></LoginPage>}></Route>
               <Route path='/boulders' element={<MainPage></MainPage>}></Route>
               <Route path='/boulders/:idBoulder' element={<DetailBoulderPage></DetailBoulderPage>}></Route>
+              <Route path='/boulders/new' element={<CreateBoulderPage></CreateBoulderPage>}></Route>
+              
               
               
             </Routes>

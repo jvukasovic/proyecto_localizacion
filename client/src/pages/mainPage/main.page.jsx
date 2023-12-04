@@ -63,7 +63,7 @@ const MainPage = () => {
   const zoom = 4;
 
   return (
-    <>
+   
     <Flex justify={'center'} align={'flex-start'} wrap='wrap'>
       <List
         style={{
@@ -93,7 +93,7 @@ const MainPage = () => {
       </Wrapper>
 
     </Flex>
-    </> 
+
   );
 };
 export default MainPage;
