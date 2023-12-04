@@ -25,15 +25,25 @@ const BoulderSchema = new mongoose.Schema({
         coordinates: {
           type: [Number],
           required: true
-        }
-        // required: [true, 'La localización es requerida']
+        },
       },
-    calification: { 
-        type: Number, 
-        min: 0,
-        max: 5,
-        required: [true, 'La calificación es requerida']
-    }, 
+    calification: [{
+        rating : { 
+            type: Number, 
+            min: 0,
+            max: 5,
+            required: [true, 'La calificación es requerida']
+        }, 
+        comment: { 
+            type: String, 
+            // minLength: 10
+        },
+        idUser: { 
+            type: mongoose.Types.ObjectId,
+            required: [true, 'Id User es requerido']
+        }
+    }
+    ], 
     idUser: { 
         type: mongoose.Types.ObjectId,
         required: [true, 'Id User es requerido']
