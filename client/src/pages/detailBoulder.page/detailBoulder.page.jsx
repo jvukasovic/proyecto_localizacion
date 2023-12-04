@@ -4,6 +4,7 @@ import {List, Flex, Rate, Button} from 'antd';
 import { Wrapper} from "@googlemaps/react-wrapper";
 
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -67,6 +68,8 @@ const DetailBoulderPage = () => {
   };
   const center = { lat: -34.397, lng: 150.644 };
   const zoom = 4;
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -157,6 +160,15 @@ const DetailBoulderPage = () => {
                 }}
             >
                 Edit Boulder
+            </Button>
+            <Button
+                type="primary"
+                onClick={()=>navigate('/boulders')}
+                style={{
+                    margin:8
+                }}
+            >
+                Back
             </Button>
         </div>
 

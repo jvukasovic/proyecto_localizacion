@@ -44,11 +44,11 @@ function App() {
       >
         <div className="demo-logo" style={{width:850}} > <h1 style={{color:'#FFFFFFD9'}}>La Silla del Diablo</h1> </div>
         
-        {
+        {/* {
           pathname == '/login' || pathname == '/'
           ? <></>
           : <Menu theme='dark' mode="vertical" items={items}/>
-        }
+        } */}
         
       </Header>
       <Content
