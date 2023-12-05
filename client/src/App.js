@@ -8,6 +8,7 @@ import LoginPage from './pages/loginPage/login.page';
 import MainPage from './pages/mainPage/main.page';
 import DetailBoulderPage from './pages/detailBoulder.page/detailBoulder.page';
 import CreateBoulderPage from './pages/createBoulder.page/createBoulder.page';
+import CreateReviewPage from './pages/createReview.page/createReview.page';
 
 
 const { Header, Content, Footer } = Layout;
@@ -74,6 +75,8 @@ function App() {
               <Route path='/boulders' element={<MainPage></MainPage>}></Route>
               <Route path='/boulders/:idBoulder' element={<DetailBoulderPage></DetailBoulderPage>}></Route>
               <Route path='/boulders/new' element={<CreateBoulderPage></CreateBoulderPage>}></Route>
+              <Route path='/boulders/:idBoulder/newReview' element={<CreateReviewPage></CreateReviewPage>}></Route>
+              
               
               
               
@@ -88,7 +91,7 @@ function App() {
           textAlign: 'center',
         }}
       >
-        Made with ❤ ©2023 
+        Made with ❤ 2023
       </Footer>
     </Layout>
 
