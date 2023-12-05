@@ -21,34 +21,16 @@ const validateMessages = {
   required: '${label} is required!',
 };
 
-function MyMapComponent({
-    center,
-    zoom,
-  }) {
-    const ref = useRef();
-  
-    useEffect(() => {
-      new window.google.maps.Map(ref.current, {
-        center,
-        zoom,
-        mapTypeId: 'satellite'
-      });
-    }, [center, zoom]);
-  
-    return <div ref={ref} id="map" 
-      style={{
-      width:350,
-      height:350,
-      marginLeft: 30,
-      borderRadius: 5,
-    }}/>;
-  }
-
 const UpdateBoulderPage = () => {
     const [boulderName, setBoulderName] = useState('');
     const [grade, setGrade] = useState('');
     const [meanRating, setMeanRating] = useState();
     const [description, setDescription] = useState('');
+    // const [initialCoordinates, setInitialCoordinates] = useState([]);
+    const [coordinates, setCoordinates] = useState([]);
+
+
+    // let coordinates = [];
 
     const params = useParams();
     const navigate = useNavigate();
@@ -59,8 +41,50 @@ const UpdateBoulderPage = () => {
 
     const idBoulder = params.idBoulder;
 
-    const center = { lat: -33.817054, lng: -70.018062 };
+    const center = { lat: coordinates[0], lng: coordinates[1] };
     const zoom = 15;
+
+
+    function MyMapComponent({
+        center,
+        zoom,
+        name
+      }) {
+        const ref = useRef();
+      
+        useEffect(() => {
+          const map = new window.google.maps.Map(ref.current, {
+            center,
+            zoom,
+            mapTypeId: 'satellite'
+          });
+          const draggableMarker = new window.google.maps.Marker({
+              position: { lat: coordinates[0], lng: coordinates[1] },
+              map,
+              title: name,
+              draggable:true,
+          })
+    
+          draggableMarker.addListener("dragend", (event) => {
+            const position = draggableMarker.position;
+            setCoordinates([parseFloat(position.lat().toFixed(5)), parseFloat(position.lng().toFixed(5))])
+            // parseFloat(val.toFixed(2))
+            console.log(coordinates);
+            // alert(
+            //   `Pin dropped at: ${position.lat()}, ${position.lng()}`,
+            // );
+          });
+        }, [center, zoom]);
+      
+        return <div ref={ref} id="map" 
+          style={{
+          width:350,
+          height:350,
+          marginLeft: 30,
+          marginBottom: 12,
+          borderRadius: 5,
+        }}/>;
+    }
 
     const getBoulderData = async () => {
         try {
@@ -69,20 +93,24 @@ const UpdateBoulderPage = () => {
             setGrade(getOneResult.data.grade);
             setMeanRating(getOneResult.data.meanRating);
             setDescription(getOneResult.data.description);
+            setCoordinates(getOneResult.data.geolocation.coordinates);
         } catch (e) {
             alert(e.response.data.message);
         }
     }
 
 
-    const onFinish = async (values) => {
+    const onFinish = async (values) => { 
+        
         values['geolocation'] = {
             "type": "Point",
             "coordinates": [
-                1,
-                2
+                coordinates[0], 
+                coordinates[1]
             ]
         }
+        console.log(values);
+    
         try {
             var result = await axios.put("http://localhost:8000/api/boulders/update/"+idBoulder, values);
             if(result.status == 200){
@@ -198,7 +226,7 @@ const UpdateBoulderPage = () => {
             apiKey={apikey} 
             render={render}
         >
-            <MyMapComponent center={center} zoom={zoom} />
+            <MyMapComponent center={center} zoom={zoom} name={boulderName}/>
         </Wrapper>
 
         </Flex>

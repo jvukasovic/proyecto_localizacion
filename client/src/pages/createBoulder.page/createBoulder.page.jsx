@@ -21,47 +21,80 @@ const validateMessages = {
   required: '${label} is required!',
 };
 
-function MyMapComponent({
-    center,
-    zoom,
-  }) {
-    const ref = useRef();
-  
-    useEffect(() => {
-      new window.google.maps.Map(ref.current, {
-        center,
-        zoom,
-        mapTypeId: 'satellite'
-      });
-    }, [center, zoom]);
-  
-    return <div ref={ref} id="map" 
-      style={{
-      width:350,
-      height:350,
-      marginLeft: 30,
-      borderRadius: 5,
-    }}/>;
-  }
 
 const CreateBoulderPage = () => {
+    const [coordinates, setCoordinates] = useState([]);
     const navigate = useNavigate();
     const render = (status) => {
         return <h1>{status}</h1>;
       };
 
-    const center = { lat: -33.817054, lng: -70.018062 };
-    const zoom = 15;
+      const center = { lat: -33.817054, lng: -70.018062 };
+      const zoom = 15;
+  
+  
+      function MyMapComponent({
+          center,
+          zoom,
+          name
+        }) {
+          const ref = useRef();
+        
+          useEffect(() => {
+            const map = new window.google.maps.Map(ref.current, {
+              center,
+              zoom,
+              mapTypeId: 'satellite'
+            });
+            if(coordinates.length == 0){
+                const draggableMarker = new window.google.maps.Marker({
+                    position: { lat: -33.817054, lng: -70.018062  },
+                    map,
+                    title: name,
+                    draggable:true,
+                })
+                draggableMarker.addListener("dragend", (event) => {
+                    const position = draggableMarker.position;
+                    setCoordinates([parseFloat(position.lat().toFixed(5)), parseFloat(position.lng().toFixed(5))])
+                    });
+            }else{
+                const draggableMarker = new window.google.maps.Marker({
+                    position: { lat: coordinates[0], lng: coordinates[1] },
+                    map,
+                    title: name,
+                    draggable:true,
+                })
+                draggableMarker.addListener("dragend", (event) => {
+                    const position = draggableMarker.position;
+                    setCoordinates([parseFloat(position.lat().toFixed(5)), parseFloat(position.lng().toFixed(5))])
+                    });
+            }           
+          }, [center, zoom]);
+        
+          return <div ref={ref} id="map" 
+            style={{
+            width:350,
+            height:350,
+            marginLeft: 30,
+            marginBottom: 12,
+            borderRadius: 5,
+          }}/>;
+      }
 
 
     const onFinish = async (values) => {
+        if(coordinates.length == 0){
+            alert('Choose boulder position.')
+            return;
+        }
         values.boulder['geolocation'] = {
             "type": "Point",
             "coordinates": [
-                1,
-                2
+                coordinates[0], 
+                coordinates[1]
             ]
         }
+        
         console.log(values.boulder);
         try {
             var result = await axios.post("http://localhost:8000/api/boulders/create", values.boulder);
@@ -171,7 +204,7 @@ const CreateBoulderPage = () => {
             apiKey={apikey} 
             render={render}
         >
-            <MyMapComponent center={center} zoom={zoom} />
+            <MyMapComponent center={center} zoom={zoom} name={'New Boulder'}/>
         </Wrapper>
 
         </Flex>

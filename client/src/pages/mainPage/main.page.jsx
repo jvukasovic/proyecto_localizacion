@@ -27,6 +27,7 @@ function MyMapComponent({
         position: { lat: coord[0], lng: coord[1]},
         map,
         title: boulder.boulderName,
+        animation: window.google.maps.Animation.DROP
       })
     })
   }, [center, zoom]);

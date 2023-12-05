@@ -24,6 +24,7 @@ function MyMapComponent({
         position: center,
         map,
         title: name,
+        animation: window.google.maps.Animation.DROP
     })
   }, [center, zoom]);
 
@@ -65,7 +66,7 @@ const DetailBoulderPage = () => {
             setMeanRating(getOneResult.data.meanRating);
             setDescription(getOneResult.data.description);
             setReviews(getOneResult.data.calification);
-            setCoordinates(getOneResult.data.geolocation.coordinates)
+            setCoordinates(getOneResult.data.geolocation.coordinates);
         } catch (e) {
             alert(e.response.data.message);
         }
