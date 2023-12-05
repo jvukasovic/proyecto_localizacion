@@ -9,6 +9,7 @@ import MainPage from './pages/mainPage/main.page';
 import DetailBoulderPage from './pages/detailBoulder.page/detailBoulder.page';
 import CreateBoulderPage from './pages/createBoulder.page/createBoulder.page';
 import CreateReviewPage from './pages/createReview.page/createReview.page';
+import UpdateBoulderPage from './pages/updateBoulder.page/updateBoulder.page';
 
 
 const { Header, Content, Footer } = Layout;
@@ -76,10 +77,8 @@ function App() {
               <Route path='/boulders/:idBoulder' element={<DetailBoulderPage></DetailBoulderPage>}></Route>
               <Route path='/boulders/new' element={<CreateBoulderPage></CreateBoulderPage>}></Route>
               <Route path='/boulders/:idBoulder/newReview' element={<CreateReviewPage></CreateReviewPage>}></Route>
-              
-              
-              
-              
+              <Route path='/boulders/:idBoulder/update' element={<UpdateBoulderPage></UpdateBoulderPage>}></Route>
+ 
             </Routes>
           </BrowserRouter>
 
