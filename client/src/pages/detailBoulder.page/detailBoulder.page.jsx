@@ -42,8 +42,8 @@ const DetailBoulderPage = () => {
     const render = (status) => {
         return <h1>{status}</h1>;
     };
-    const center = { lat: -34.397, lng: 150.644 };
-    const zoom = 4;
+    const center = { lat: -33.817054, lng: -70.018062 };
+    const zoom = 15;
 
     const params = useParams();
     const navigate = useNavigate();

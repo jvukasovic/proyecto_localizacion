@@ -59,8 +59,8 @@ const UpdateBoulderPage = () => {
 
     const idBoulder = params.idBoulder;
 
-    const center = { lat: -34.397, lng: 150.644 };
-    const zoom = 4;
+    const center = { lat: -33.817054, lng: -70.018062 };
+    const zoom = 15;
 
     const getBoulderData = async () => {
         try {
