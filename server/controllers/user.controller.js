@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import bcrypt from 'bcrypt';
 
 const registerUser = async (req, res) => {
     try{
@@ -14,12 +15,9 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        const loginUserResult = await User.findOne({email: req.body.email, password: req.body.password});
-        if(loginUserResult != null){
-            res.status(200).json(true);
-        } else {
-            res.status(200).json(false);
-        }
+        const loginUserResult = await User.findOne({email: req.body.email});
+        const resultCompare = bcrypt.compareSync(req.body.password, loginUserResult.password)
+        res.status(200).json(resultCompare);
     } catch (e) {
         res.status(400).json({
             "message": e.message
