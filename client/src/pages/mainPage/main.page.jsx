@@ -20,11 +20,15 @@ function MyMapComponent({
       zoom,
       mapTypeId: 'satellite'
     });
-    new window.google.maps.Marker({
-      position: { lat: -34.397, lng: 150.644 },
-      map,
-      title: "Hello World!",
-    });
+   
+    boulderList.map((boulder, idx) => {
+      const coord = boulder.geolocation.coordinates
+      new window.google.maps.Marker({
+        position: { lat: coord[0], lng: coord[1]},
+        map,
+        title: boulder.boulderName,
+      })
+    })
   }, [center, zoom]);
 
   return <div ref={ref} id="map" 
@@ -95,7 +99,7 @@ const MainPage = () => {
         apiKey={apikey} 
         render={render}
       >
-          <MyMapComponent center={center} zoom={zoom} />
+          <MyMapComponent center={center} zoom={zoom} boulderList={boulderList} />
       </Wrapper>
       <Button
           type="primary"
