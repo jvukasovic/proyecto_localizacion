@@ -1,7 +1,8 @@
 import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Button, Form, Input } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const formItemLayout = {
   labelCol: {
@@ -40,9 +41,31 @@ const tailFormItemLayout = {
 };
 
 const App = () => {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  const navigate = useNavigate();
+  const aux = {
+    email: "meg@123.cl",
+    password: "password44444"
+}
+  const onFinish = async(values) => {
+    console.log(values);
+    try {
+      var result = await axios.post("http://localhost:8000/api/user/login", values);
+      console.log(result);
+      if(result.data == false){
+          alert("Credentials not found");
+          return;
+      }
+
+      localStorage.setItem('isLogged', true)
+
+      navigate("/boulders");
+
+    } catch (e) {
+      alert('Credentials not found, try again.');
+    }
   };
+
+
   return (
     <Form
       {...formItemLayout}
@@ -85,15 +108,6 @@ const App = () => {
           placeholder="Password"
         />
       </Form.Item>
-      {/* <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <a className="login-form-forgot" href="">
-          Forgot password
-        </a>
-      </Form.Item> */}
 
       <Form.Item 
         {...tailFormItemLayout}
@@ -102,7 +116,7 @@ const App = () => {
         }}
       >
         <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
+          Sign in
         </Button>
       </Form.Item>
         <p 

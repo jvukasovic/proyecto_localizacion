@@ -49,7 +49,12 @@ const MainPage = () => {
   }
 
   useEffect(() =>{
+    const isLogged = localStorage.getItem('isLogged');
+    if (isLogged == null){
+        navigate('/login')
+    }
     callBoulderList();
+    
   }, []);
 
   return (

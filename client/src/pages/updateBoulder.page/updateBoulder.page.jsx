@@ -94,6 +94,10 @@ const UpdateBoulderPage = () => {
       };
 
       useEffect(() => {
+        const isLogged = localStorage.getItem('isLogged');
+        if (isLogged == null){
+            navigate('/login')
+        }
         getBoulderData();
     }, []); 
     

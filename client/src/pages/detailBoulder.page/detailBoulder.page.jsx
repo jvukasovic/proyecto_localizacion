@@ -77,6 +77,10 @@ const DetailBoulderPage = () => {
 
     useEffect(() => {
         getBoulderData();
+        const isLogged = localStorage.getItem('isLogged');
+        if (isLogged == null){
+            navigate('/login')
+        }
     }, []);  
 
     return (

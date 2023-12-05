@@ -74,6 +74,10 @@ const CreateReviewPage = () => {
       };
 
     useEffect(() => {
+        const isLogged = localStorage.getItem('isLogged')
+        if (isLogged == null){
+            navigate('/login')
+        }
         getBoulderData();
     }, []);  
     

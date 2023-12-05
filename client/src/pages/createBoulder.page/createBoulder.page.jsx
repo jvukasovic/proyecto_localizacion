@@ -72,7 +72,12 @@ const CreateBoulderPage = () => {
             alert(e.response.data.message);
         }
       };
-    
+    useEffect(() => {
+        const isLogged = localStorage.getItem('isLogged');
+        if (isLogged == null){
+            navigate('/login')
+        }
+    }, [])
     return (
         <Flex justify={'center'} align={'flex-start'} wrap='wrap'>
             <Form
