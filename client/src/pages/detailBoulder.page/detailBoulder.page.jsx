@@ -10,15 +10,21 @@ const apikey = process.env.REACT_APP_MAPS_API_KEY
 function MyMapComponent({
   center,
   zoom,
+  name
 }) {
   const ref = useRef();
 
   useEffect(() => {
-    new window.google.maps.Map(ref.current, {
+    const map = new window.google.maps.Map(ref.current, {
       center,
       zoom,
       mapTypeId: 'satellite'
     });
+    new window.google.maps.Marker({
+        position: center,
+        map,
+        title: name,
+    })
   }, [center, zoom]);
 
   return <div ref={ref} id="map" 
@@ -37,12 +43,13 @@ const DetailBoulderPage = () => {
     const [meanRating, setMeanRating] = useState();
     const [description, setDescription] = useState('');
     const [reviews, setReviews] = useState([]);
+    const [coordinates, setCoordinates] = useState([]);
     const [type, setType] = useState('');
 
     const render = (status) => {
         return <h1>{status}</h1>;
     };
-    const center = { lat: -33.817054, lng: -70.018062 };
+    const center = { lat: coordinates[0], lng: coordinates[1] };
     const zoom = 15;
 
     const params = useParams();
@@ -58,6 +65,7 @@ const DetailBoulderPage = () => {
             setMeanRating(getOneResult.data.meanRating);
             setDescription(getOneResult.data.description);
             setReviews(getOneResult.data.calification);
+            setCoordinates(getOneResult.data.geolocation.coordinates)
         } catch (e) {
             alert(e.response.data.message);
         }
@@ -147,7 +155,7 @@ const DetailBoulderPage = () => {
                     apiKey={apikey} 
                     render={render}
                 >
-                    <MyMapComponent center={center} zoom={zoom} />
+                    <MyMapComponent center={center} zoom={zoom} name={boulderName} />
                 </Wrapper>
                 <Button
                     type="primary"
