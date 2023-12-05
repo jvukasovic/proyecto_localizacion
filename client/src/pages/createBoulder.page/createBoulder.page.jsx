@@ -31,6 +31,7 @@ function MyMapComponent({
       new window.google.maps.Map(ref.current, {
         center,
         zoom,
+        mapTypeId: 'satellite'
       });
     }, [center, zoom]);
   

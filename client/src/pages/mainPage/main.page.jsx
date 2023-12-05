@@ -10,13 +10,20 @@ const apikey = process.env.REACT_APP_MAPS_API_KEY
 function MyMapComponent({
   center,
   zoom,
+  boulderList
 }) {
   const ref = useRef();
 
   useEffect(() => {
-    new window.google.maps.Map(ref.current, {
+    const map = new window.google.maps.Map(ref.current, {
       center,
       zoom,
+      mapTypeId: 'satellite'
+    });
+    new window.google.maps.Marker({
+      position: { lat: -34.397, lng: 150.644 },
+      map,
+      title: "Hello World!",
     });
   }, [center, zoom]);
 
@@ -35,8 +42,9 @@ const MainPage = () => {
   const render = (status) => {
     return <h1>{status}</h1>;
   };
-  const center = { lat: -34.397, lng: 150.644 };
-  const zoom = 4;
+
+  const center = { lat: -33.817054, lng: -70.018062 };
+  const zoom = 15;
 
   const callBoulderList = async () => {
     try {
@@ -54,7 +62,6 @@ const MainPage = () => {
         navigate('/login')
     }
     callBoulderList();
-    
   }, []);
 
   return (
