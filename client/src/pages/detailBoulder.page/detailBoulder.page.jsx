@@ -36,6 +36,7 @@ const DetailBoulderPage = () => {
     const [meanRating, setMeanRating] = useState();
     const [description, setDescription] = useState('');
     const [reviews, setReviews] = useState([]);
+    const [type, setType] = useState('');
 
     const render = (status) => {
         return <h1>{status}</h1>;
@@ -77,7 +78,8 @@ const DetailBoulderPage = () => {
 
     useEffect(() => {
         getBoulderData();
-        const isLogged = localStorage.getItem('isLogged');
+        const isLogged = localStorage.getItem('type');
+        setType(isLogged)
         if (isLogged == null){
             navigate('/login')
         }
@@ -164,26 +166,31 @@ const DetailBoulderPage = () => {
                 >
                     Back
                 </Button>
-                <div>
-                    <Button
-                        type="primary"
-                        onClick={()=>navigate(`/boulders/${idBoulder}/update`)}
-                        style={{
-                            margin:8
-                        }}
-                    >
-                        Edit Boulder
-                    </Button>
-                    <Button
-                        type="primary"
-                        onClick={()=>handleDelete(idBoulder)}
-                        style={{
-                            margin:8
-                        }}
-                    >
-                        Delete
-                    </Button>
-                </div>
+                {
+                    type == 'admin' 
+                    ? <div >
+                            <Button
+                                type="primary"
+                                onClick={()=>navigate(`/boulders/${idBoulder}/update`)}
+                                style={{
+                                    margin:8
+                                }}
+                            >
+                                Edit Boulder
+                            </Button>
+                            <Button
+                                type="primary"
+                                onClick={()=>handleDelete(idBoulder)}
+                                style={{
+                                    margin:8
+                                }}
+                            >
+                                Delete
+                            </Button>
+                        </div>
+                    : <></>
+                }
+                
             </div>
         </Flex>
   )

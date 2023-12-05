@@ -42,26 +42,19 @@ const tailFormItemLayout = {
 
 const App = () => {
   const navigate = useNavigate();
-  const aux = {
-    email: "meg@123.cl",
-    password: "password44444"
-}
+
   const onFinish = async(values) => {
-    console.log(values);
     try {
-      var result = await axios.post("http://localhost:8000/api/user/login", values);
+      const result = await axios.post("http://localhost:8000/api/user/login", values);
       console.log(result);
-      if(result.data == false){
-          alert("Credentials not found");
-          return;
+      if (!result.data.resultcompare){
+        alert('User or password not found.');
+        return;
       }
-
-      localStorage.setItem('isLogged', true)
-
+      localStorage.setItem('type', result.data.userType)
       navigate("/boulders");
-
     } catch (e) {
-      alert('Credentials not found, try again.');
+      alert('User or password not found.');
     }
   };
 

@@ -49,7 +49,7 @@ const MainPage = () => {
   }
 
   useEffect(() =>{
-    const isLogged = localStorage.getItem('isLogged');
+    const isLogged = localStorage.getItem('type');
     if (isLogged == null){
         navigate('/login')
     }

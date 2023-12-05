@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const registerUser = async (req, res) => {
     try{
@@ -17,7 +18,9 @@ const loginUser = async (req, res) => {
     try {
         const loginUserResult = await User.findOne({email: req.body.email});
         const resultCompare = bcrypt.compareSync(req.body.password, loginUserResult.password)
-        res.status(200).json(resultCompare);
+
+        res.status(200).json({'resultcompare': resultCompare, 'userType': loginUserResult.type});
+
     } catch (e) {
         res.status(400).json({
             "message": e.message
