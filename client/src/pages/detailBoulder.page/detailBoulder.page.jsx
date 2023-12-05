@@ -25,6 +25,7 @@ function MyMapComponent({
     width:350,
     height:350,
     marginLeft: 30,
+    marginBottom: 12,
     borderRadius: 5,
   }}/>;
 }
@@ -64,7 +65,6 @@ const DetailBoulderPage = () => {
         try {
             const deleteResult = await axios.delete("http://localhost:8000/api/boulders/delete/" + idBoulder);
             if(deleteResult.status == 200){
-                //var listAuthorsTemp = listAuthors.filter((auth) => auth._id != idAuth);
                 alert("Deleted correctly");
                 navigate('/boulders');
             } else {
@@ -110,7 +110,6 @@ const DetailBoulderPage = () => {
                     style={{
                         maxWidth: 450,
                         width:450,
-                        verticalAlign:'center'
                     }}
                     itemLayout="vertical"
                     size="small"
@@ -123,11 +122,10 @@ const DetailBoulderPage = () => {
                         >
                         <List.Item.Meta
                             title={item.userName}
+                            description={item.comment}
                         />
                         
-                        <div>
-                            {item.comment}
-                        </div>
+                      
                         </List.Item>
                     )}
                 />
@@ -149,6 +147,7 @@ const DetailBoulderPage = () => {
                     style={{
                         margin:8
                     }}
+                    onClick={()=>navigate(`/boulders/${idBoulder}/newReview`)}
                 >
                     Add review
                 </Button>
@@ -164,6 +163,7 @@ const DetailBoulderPage = () => {
                 <div>
                     <Button
                         type="primary"
+                        onClick={()=>navigate(`/boulders/${idBoulder}/update`)}
                         style={{
                             margin:8
                         }}
