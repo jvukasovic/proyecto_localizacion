@@ -25,6 +25,7 @@ const CreateReviewPage = () => {
     const [newMeanRating, setNewMeanRating] = useState('');
     const [numReviews, setNumReviews] = useState('');
     const [calification, setCalification] = useState('');
+    const [userName, setUserName] = useState('');
 
     const params = useParams();
     const navigate = useNavigate();
@@ -43,16 +44,23 @@ const CreateReviewPage = () => {
         }
     }
 
-    const getNewMean = (oldMean, oldN, newCalification) => {
-        const newMean = ((oldMean * oldN) + newCalification) / (oldN + 2)
+    const getNewMean = (oldMean, oldN, newCalification, califications) => {
+        if (oldN == 0){
+            setNewMeanRating(newCalification);
+            return;
+        }
+        const sum = calification.reduce((partialSum, a) => partialSum + a.rating, 0) + newCalification
+        const newMean = sum/(oldN+1)
+
         setNewMeanRating(newMean);
+
     }
 
     const onFinish = async (values) => {
         const newCalification = {
             'rating':values.boulder.newRating,
             'comment': values.boulder.description,
-            'userName': 'Nombre Usuario'
+            'userName': userName
         }
         calification.push(newCalification)
 
@@ -75,6 +83,7 @@ const CreateReviewPage = () => {
 
     useEffect(() => {
         const isLogged = localStorage.getItem('type')
+        setUserName(localStorage.getItem('userName'))
         if (isLogged == null){
             navigate('/login')
         }
@@ -109,7 +118,7 @@ const CreateReviewPage = () => {
                             },
                         ]}
                     >
-                        <Rate onChange={e => getNewMean(meanRating, numReviews, e)}
+                        <Rate onChange={e => getNewMean(meanRating, numReviews, e, calification)}
                         />
                     </FormItem>
                     <Form.Item 
