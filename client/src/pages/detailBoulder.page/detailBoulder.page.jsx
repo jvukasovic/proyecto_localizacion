@@ -115,7 +115,14 @@ const DetailBoulderPage = () => {
                         marginTop:8
                     }}
                 />
-                <p>{description}</p>
+                <p 
+                    style={{
+                        maxWidth: 450,
+                        width:450,
+                    }}
+                >
+                    {description}
+                </p>
 
                 <h2 style={{
                 marginTop:30
