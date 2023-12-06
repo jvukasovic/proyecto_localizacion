@@ -42,6 +42,7 @@ function MyMapComponent({
 }
 
 const MainPage = () => {
+  const [type, setType] = useState('')
   const [boulderList, setBoulderList] = useState([]);
   const navigate = useNavigate();
   const render = (status) => {
@@ -63,6 +64,7 @@ const MainPage = () => {
 
   useEffect(() =>{
     const isLogged = localStorage.getItem('type');
+    setType(isLogged)
     if (isLogged == null){
         navigate('/login')
     }
@@ -102,15 +104,19 @@ const MainPage = () => {
       >
           <MyMapComponent center={center} zoom={zoom} boulderList={boulderList} />
       </Wrapper>
-      <Button
-          type="primary"
-          onClick={()=>navigate('/boulders/new')}
-          style={{
-              margin:8
-          }}
-      >
-          New Boulder
-      </Button>
+      {
+         type == 'admin' 
+         ? <Button
+                type="primary"
+                onClick={()=>navigate('/boulders/new')}
+                style={{
+                    margin:8
+                }}
+            >
+                New Boulder
+            </Button>
+          : <></>
+      }
       </div>
 
     </Flex>
