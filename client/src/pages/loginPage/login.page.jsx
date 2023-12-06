@@ -52,6 +52,7 @@ const App = () => {
         return;
       }
       localStorage.setItem('type', result.data.userType)
+      localStorage.setItem('userName', result.data.userName)
       navigate("/boulders");
     } catch (e) {
       alert('User or password not found.');
