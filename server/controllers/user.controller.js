@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
         const loginUserResult = await User.findOne({email: req.body.email});
         const resultCompare = bcrypt.compareSync(req.body.password, loginUserResult.password)
 
-        res.status(200).json({'resultcompare': resultCompare, 'userType': loginUserResult.type});
+        res.status(200).json({'resultcompare': resultCompare, 'userType': loginUserResult.type, 'userName': loginUserResult.userName});
 
     } catch (e) {
         res.status(400).json({
