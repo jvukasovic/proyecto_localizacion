@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {Button, Form, Input} from 'antd';
+import axios from 'axios';
 
 const formItemLayout = {
   labelCol: {
@@ -35,8 +36,29 @@ const tailFormItemLayout = {
 };
 const RegisterPage = () => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
+  const navigate = useNavigate();
+  const onFinish = async (values) => {
     console.log('Received values of form: ', values);
+    try{
+      var obj = {
+          "userName": values.userName,
+          "email": values.email,
+          "password": values.password,
+          "type":'read'
+      };
+
+      var response = await axios.post("http://localhost:8000/api/user/register", obj);
+      if(response.status != 200){
+          alert("Hubo un error");
+          return;
+      }
+      localStorage.setItem('type', 'read');
+      localStorage.setItem('userName', values.userName);
+      alert("Se registro correctamente");
+      navigate("/boulders");
+  }catch(e){
+      alert(e.response.data.message);
+  }
   };
 
   return (
