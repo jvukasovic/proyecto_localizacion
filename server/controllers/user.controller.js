@@ -16,6 +16,7 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
+        //if loginUserResult == nulo
         const loginUserResult = await User.findOne({email: req.body.email});
         const resultCompare = bcrypt.compareSync(req.body.password, loginUserResult.password)
 
